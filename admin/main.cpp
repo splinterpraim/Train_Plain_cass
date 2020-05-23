@@ -21,10 +21,12 @@ int main()
 
      s.Add();
      s.Add();
+     s.Add();
 
 
 
-     s.Del();
+     s.Redact();
+     s.Show();
     /* Work_w_file d(s);
      Work_w_file e;*/
 

@@ -77,19 +77,69 @@ void Work_w_file::Add()
 void Work_w_file::Del()
 {
     Show();
+
     int ndel;
     cout<<"Напишите номер билета, который нужно удалить\nНомер: ";cin>>ndel;
     ndel=_size-ndel;
-    Element ptr=ptr_last->_next, ptr_last=_list;
-    for(int i=0; i<ndel;i++)
-    {   ptr_last=ptr;
-        ptr=ptr_last->_next;
+
+    Element *ptr=_list, *ptr_last=nullptr;
+    if(ndel)
+    {
+        for(int i=0; i<ndel;i++)
+        {   ptr_last=ptr;
+            ptr=ptr_last->_next;
+        }
+        ptr_last->_next=ptr->_next;
     }
-    _list=ptr;
+    else
+    {
+        _list=ptr->_next;
+    }
+    _size--;
+
     delete ptr_last;
     delete ptr;
 
 }
+
+ void Work_w_file::Redact()
+ {
+       Show();
+
+    int ndel;
+    cout<<"Напишите номер билета, который нужно редактировать\nНомер: ";cin>>ndel;
+    ndel=_size-ndel;
+      Element *ptr=_list;
+    if(ndel)
+    {
+        for(int i=0; i<ndel;i++)
+        {
+            ptr=ptr->_next;
+        }
+    }
+    cout<<"Выберите что нужно редактировать \n";
+    cout<<"1.Дата\n2.Cтоимость\n3.Пункт назначения\n4.Все пункты\n";
+    cin>>ndel;
+    if((ndel==1)||(ndel==4))
+    {
+        cout<<"Введите дату\n";
+        cout<<"День:  ";   cin>>ptr->date[0];
+        cout<<"Месяц: ";   cin>>ptr->date[1];
+        cout<<"Год:   ";   cin>>ptr->date[2];
+    }
+
+    if((ndel==2)||(ndel==4))
+    {
+        cout<<"Введите стоимость: ";cin>>ptr->cost;
+    }
+
+    if((ndel==3)||(ndel==4))
+    {   cin.get();
+        cout<<"Введите Пункт назначения: "; getline(cin,ptr->direction,'\n');
+    }
+    delete ptr;
+
+ }
 
 void Work_w_file::Show()
 {
@@ -120,4 +170,18 @@ void Work_w_file::Show()
         }
         delete ptr;
     }
+}
+
+void Work_w_file::Put_in_file(string f)
+{
+    ofstream fout(f, std::ios::out);
+
+    fout.close();
+}
+
+void Work_w_file::Get_from_file(string f)
+{
+    ifstream fin(f, std::ios::in);
+
+    fin.close();
 }
