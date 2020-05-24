@@ -26,11 +26,13 @@ public:
     void Del();//+
     void Redact();//+
     void Show();//+
-    void SaveBackup();
-    void Recovery();
+    void SaveBackup(string f);//+
+    void Recovery(string f);//+
 
-    void Put_in_file(string f);
-    void Get_from_file(string f);
+    void Put_in_file(string f);//+
+    void Get_from_file(string f);//+
+
+
 
 
 
