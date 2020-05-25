@@ -68,6 +68,7 @@ void Work_w_file::Add()
     ptr->_next=_list;
     _list=ptr; ptr=nullptr; delete ptr;
     _size++;
+    Sort();
 
 }
 
@@ -77,7 +78,7 @@ void Work_w_file::Del()
 
     int ndel;
     cout<<"\nНапишите номер билета, который нужно удалить\nНомер: ";cin>>ndel;
-    ndel=_size-ndel;
+    ndel-=1;
 
     Element *ptr=_list, *ptr_last=nullptr;
     if(ndel)
@@ -106,7 +107,7 @@ void Work_w_file::Del()
 
     int ndel;
     cout<<"Напишите номер билета, который нужно редактировать\nНомер: ";cin>>ndel;
-    ndel=_size-ndel;
+    ndel-=1;
       Element *ptr=_list;
     if(ndel)
     {
@@ -124,6 +125,7 @@ void Work_w_file::Del()
         cout<<"День:  ";   cin>>ptr->date[0];
         cout<<"Месяц: ";   cin>>ptr->date[1];
         cout<<"Год:   ";   cin>>ptr->date[2];
+        Sort();
     }
 
     if((ndel==2)||(ndel==4))
@@ -138,6 +140,7 @@ void Work_w_file::Del()
     ptr=nullptr;
     delete ptr;
 
+
  }
 
 
@@ -147,62 +150,41 @@ void Work_w_file::Show()
     else
     {
         Element *ptr=_list;
-        Element Tmp[_size];
-        for(int i=0; i<_size;i++)
+        for(int i=0;i<_size;i++)
         {
-            Tmp[i].date[0]=ptr->date[0];
-            Tmp[i].date[1]=ptr->date[1];
-            Tmp[i].date[2]=ptr->date[2];
-            Tmp[i].cost=ptr->cost;
-            Tmp[i].direction=ptr->direction;
+            cout<<"БИЛЕТ № "<<i+1<<endl;
+            cout<<"Дата\n";
+            cout<<"День:  "<<ptr->date[0]<<endl;
+            cout<<"Месяц: "<<ptr->date[1]<<endl;
+            cout<<"Год:   "<<ptr->date[2]<<endl;
+            cout<<"Cтоимость:  "<<ptr->cost<<endl;
+            cout<<"Пункт назначения: "<<ptr->direction<<endl;
             ptr=ptr->_next;
         }
-
-    ptr=nullptr;
-    delete ptr;
-        for(int i=_size; i>0;i--)
-        {
-            cout<<"БИЛЕТ № "<<_size-i+1<<endl;
-            cout<<"Дата\n";
-            cout<<"День:  "<<Tmp[i-1].date[0]<<endl;
-            cout<<"Месяц: "<<Tmp[i-1].date[1]<<endl;
-            cout<<"Год:   "<<Tmp[i-1].date[2]<<endl;
-            cout<<"Cтоимость:  "<<Tmp[i-1].cost<<endl;
-            cout<<"Пункт назначения: "<<Tmp[i-1].direction<<endl;
-        }
+        ptr=nullptr;
+        delete ptr;
     }
 }
 
 void Work_w_file::Put_in_file(string f)
 {
     Element *ptr=_list;
-    Element Tmp[_size];
-    for(int i=0; i<_size;i++)
-    {
-        Tmp[i].date[0]=ptr->date[0];
-        Tmp[i].date[1]=ptr->date[1];
-        Tmp[i].date[2]=ptr->date[2];
-        Tmp[i].cost=ptr->cost;
-        Tmp[i].direction=ptr->direction;
-        ptr=ptr->_next;
-    }
-    ptr=nullptr;
-    delete ptr;
 
     ofstream fout("../"+f+".txt", std::ios::out);
     fout<<_size<<endl;
-    for(int i=_size; i>0;i--)
+    for(int i=0;i<_size;i++)
     {
-        ptr= new Element;
-        fout<<Tmp[i-1].date[0]<<" ";
-        fout<<Tmp[i-1].date[1]<<" ";
-        fout<<Tmp[i-1].date[2]<<" ";
-        fout<<Tmp[i-1].cost<<" ";
-        fout<<Tmp[i-1].direction<<endl;
+        fout<<ptr->date[0]<<" ";
+        fout<<ptr->date[1]<<" ";
+        fout<<ptr->date[2]<<" ";
+        fout<<ptr->cost<<" ";
+        fout<<ptr->direction<<endl;
+        ptr=ptr->_next;
 
     }
     fout.close();
-
+    ptr=nullptr;
+    delete ptr;
 }
 
 void Work_w_file::Get_from_file(string f)
@@ -232,8 +214,8 @@ void Work_w_file::Get_from_file(string f)
         ptr->_next=_list;
         _list=ptr;
     }
-
     fin.close();
+    Sort();
 }
 
  void Work_w_file::SaveBackup(string f)
@@ -259,6 +241,119 @@ void Work_w_file::Recovery(string f)
     fout << fin.rdbuf();
     fout.close();
     fin.close();
-     Get_from_file(f);
-
+    Get_from_file(f);
 }
+
+void Work_w_file::Sort()
+{
+    Element *ptr=_list;
+    Element Tmp[_size];
+
+    //перенос в массив
+    for(int i=0; i<_size;i++)
+    {
+        Tmp[i].date[0]=ptr->date[0];     ptr->date[0]=0;
+        Tmp[i].date[1]=ptr->date[1];     ptr->date[1]=0;
+        Tmp[i].date[2]=ptr->date[2];     ptr->date[2]=0;
+        Tmp[i].cost=ptr->cost;           ptr->cost=0;
+        Tmp[i].direction=ptr->direction; ptr->direction="";
+        ptr=ptr->_next;
+    }
+
+    //сортировка
+    int buf[3];
+    float buf_c;
+    string buf_di;
+    int k=0;
+    for(int j=0; j<_size;j++)
+    {
+        for(int i=0; i<_size-1-k;i++)
+        {
+            if( Tmp[i].date[2] > Tmp[i+1].date[2])
+            {
+                buf[0]=Tmp[i].date[0];//менять
+                buf[1]=Tmp[i].date[1];
+                buf[2]=Tmp[i].date[2];
+                buf_c=Tmp[i].cost;
+                buf_di=Tmp[i].direction;
+
+                Tmp[i].date[0]=Tmp[i+1].date[0];
+                Tmp[i].date[1]=Tmp[i+1].date[1];
+                Tmp[i].date[2]=Tmp[i+1].date[2];
+                Tmp[i].cost=Tmp[i+1].cost;
+                Tmp[i].direction=Tmp[i+1].direction;
+
+                Tmp[i+1].date[0]=buf[0];
+                Tmp[i+1].date[1]=buf[1];
+                Tmp[i+1].date[2]=buf[2];
+                Tmp[i+1].cost=buf_c;
+                Tmp[i+1].direction=buf_di;
+
+            }
+            else if(Tmp[i].date[2] == Tmp[i+1].date[2])
+            {
+                if( Tmp[i].date[1] > Tmp[i+1].date[1])
+                {
+                    buf[0]=Tmp[i].date[0];//менять
+                    buf[1]=Tmp[i].date[1];
+                    buf[2]=Tmp[i].date[2];
+                    buf_c=Tmp[i].cost;
+                    buf_di=Tmp[i].direction;
+
+                    Tmp[i].date[0]=Tmp[i+1].date[0];
+                    Tmp[i].date[1]=Tmp[i+1].date[1];
+                    Tmp[i].date[2]=Tmp[i+1].date[2];
+                    Tmp[i].cost=Tmp[i+1].cost;
+                    Tmp[i].direction=Tmp[i+1].direction;
+
+                    Tmp[i+1].date[0]=buf[0];
+                    Tmp[i+1].date[1]=buf[1];
+                    Tmp[i+1].date[2]=buf[2];
+                    Tmp[i+1].cost=buf_c;
+                    Tmp[i+1].direction=buf_di;
+                }
+                else if( Tmp[i].date[1] == Tmp[i+1].date[1])
+                {
+                    if( Tmp[i].date[0] > Tmp[i+1].date[0])
+                    {
+                        buf[0]=Tmp[i].date[0];//менять
+                        buf[1]=Tmp[i].date[1];
+                        buf[2]=Tmp[i].date[2];
+                        buf_c=Tmp[i].cost;
+                        buf_di=Tmp[i].direction;
+
+                        Tmp[i].date[0]=Tmp[i+1].date[0];
+                        Tmp[i].date[1]=Tmp[i+1].date[1];
+                        Tmp[i].date[2]=Tmp[i+1].date[2];
+                        Tmp[i].cost=Tmp[i+1].cost;
+                        Tmp[i].direction=Tmp[i+1].direction;
+
+                        Tmp[i+1].date[0]=buf[0];
+                        Tmp[i+1].date[1]=buf[1];
+                        Tmp[i+1].date[2]=buf[2];
+                        Tmp[i+1].cost=buf_c;
+                        Tmp[i+1].direction=buf_di;
+                    }
+                }
+            }
+        }
+        k++;
+    }
+
+    ptr=_list;
+
+    for(int i=0;i<_size;i++)
+    {
+        ptr->date[0]=Tmp[i].date[0];
+        ptr->date[1]=Tmp[i].date[1];
+        ptr->date[2]=Tmp[i].date[2];
+        ptr->cost=Tmp[i].cost;
+        ptr->direction=Tmp[i].direction;
+        ptr=ptr->_next;
+    }
+     ptr=nullptr;
+     delete ptr;
+}
+
+
+

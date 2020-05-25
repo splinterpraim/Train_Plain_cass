@@ -1,70 +1,44 @@
 #include <iostream>
 #include  <windows.h>
+#include <fstream>
+#include "Ticket.h"
+#include "Train.h"
+#include "Plane.h"
 using namespace std;
 
-
-class base
-{
-
-    string name;
-    int file;
-    base *next;
-
-    public:
-     base(string n,int f): name(n),file(f),next(nullptr){}
-    virtual ~base()
-    {
-        delete next;
-    }
-
-     int find_(int f){return f;}
-
-    base* setNext(base* b)
-    {
-        next = b;
-        return next;
-    }
-
-    void step(int par)
-    {
-        if(find_(file)==par)
-        {
-            cout<<"маршрут найден ("<<name<<")\n";
-        }
-        else if(next!=0)
-        {
-            next->step(par);
-        }
-        else
-        {
-            cout<<"маршрут не найден \n";
-        }
-
-    }
-
-};
-class train : public base
-{
-
-    public:
-    train(string n,int f): base(n,f){}
-
-};
-class plane : public base
-{
-
-    public:
-    plane(string n,int f): base(n,f){}
-
-};
 
 int main()
 {
         setlocale(LC_ALL, "Rus");
 
-        base *first= new train("Поезд",1);
-         first->setNext(new plane("Самолет",2));
-         first->step(2);
+
+
+        //найти билет
+        //посмотреть все билеты Поездом
+        //посмотреть все билеты Самолетом
+        //выход
+
+       // Ticket *first= new Train();
+       //  first->setNext(new Plane());
+        // first->step(2);
+     //    delete first;
+
+
+
+
+
+     //добавление в файл для людей
+      /*int s;
+         fstream f("r.txt", ios::in | ios::out);
+
+
+         f>>s;
+         f.seekg(0,ios::beg);
+         f<<s+1;
+        f.seekg(0,ios::end);
+         f<<5<< " "<<6<<endl;
+         //cout<<" "<<s;
+         f.close();*/
 
     return 0;
 }

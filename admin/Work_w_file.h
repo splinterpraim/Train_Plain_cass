@@ -32,6 +32,7 @@ public:
     void Put_in_file(string f);//+
     void Get_from_file(string f);//+
 
+    void Sort();
 
 
 

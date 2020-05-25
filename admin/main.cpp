@@ -19,21 +19,6 @@ int main()
      string type_BD;
      Work_w_file s;
 
-    // s.Add();
-    // s.Add();
-    // s.Add();s.Show();
-
-    // s.Redact();
-     //s.Show();
-    // s.Put_in_file("../Plane.txt");
-//s.Recovery("Plane");
-//s.Get_from_file("../Plane.txt");
-//s.Show();
-
-
-
-
-
      do
      {
         system("cls");
@@ -70,7 +55,7 @@ int main()
             case 4:{system("cls");
                     s.Redact();
                     cout<<"\nБилет отредактирован!\nНажмите Enter чтобы вернутся в меню. . .";
-                    cin.get();
+                    cin.get();cin.get();
                     break;}
             case 5:{system("cls");
                     s.SaveBackup(type_BD);
