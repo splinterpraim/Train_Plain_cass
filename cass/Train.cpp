@@ -1,7 +1,8 @@
 #include "Train.h"
- Train::Train()
+ Train::Train():Ticket()
  {
-cout<<"конструктор T "<<endl;
+     name="Train";
+    cout<<"конструктор T "<<endl;
  }
 Train::Train(const Train& t){cout<<"конструктор коп T"<<endl;}
 Train::~Train()

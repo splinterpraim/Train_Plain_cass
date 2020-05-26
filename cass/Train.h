@@ -5,11 +5,11 @@
 #include "Ticket.h"
 class Train : public Ticket
 {
-
     public:
-    Train();
-    Train(const Train& t);
-    ~Train();
+        Train();
+        Train(const Train& t);
+        ~Train();
+
 
 };
 

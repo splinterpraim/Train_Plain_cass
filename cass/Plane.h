@@ -10,6 +10,7 @@ class Plane : public Ticket
         ~Plane();
         Plane(const Plane& p);
 
+
 };
 
 #endif // PLANE_H_INCLUDED
