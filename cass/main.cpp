@@ -1,6 +1,8 @@
 #include <iostream>
 #include  <windows.h>
 #include <fstream>
+#include <sstream>
+#include <stdexcept>
 #include "Ticket.h"
 #include "Train.h"
 #include "Plane.h"
@@ -14,52 +16,36 @@ int main()
         SetConsoleOutputCP(1251);//вывод
 
 
-/*
-
-
-
-        int prov=0;
-
-
-        fstream creat_T(username+"_Train"+".txt");
-        if(!(creat_T.is_open()))
-        {
-            creat_T.open(username+"_Train"+".txt", ios::out);
-            creat_T<<0<<endl;
-        }
-        creat_T.close();
-
-        fstream creat_P(username+"_Plane"+".txt");
-        if(!(creat_P.is_open()))
-        {
-            creat_P.open(username+"_Plane"+".txt", ios::out);
-            creat_P<<0<<endl;
-        }
-        creat_P.close();
-
-
-
-
-
-
-
-
-        */
-
-
-
-
-        //найти билет
-        //посмотреть купленные билеты
-        //посмотреть все билеты Самолетом
-        //выход
     int c;
     int exi=1;
+    int proverka=1;
     string username;
     cout<<"\n                       Добро пожаловать в программу \"ЭЛЕКТРОННАЯ КАССА\"\n";
     cout<<"                      -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n";
     cout<<"                            -- -- -- -- -- -- -- -- -- -- -- -- --  \n";
-    cout<<"\nВведите имя пользователя\n"; cout<<"Имя: ";cin>>username;
+    cout<<"\nВведите имя пользователя\n(Имя должно состоять из букв кирилицы или латинских букв, или цифр)\n(Не допускаются символы: ? \ | / * \" : ) \n";
+
+
+    do
+    {
+        try
+        {
+            cout<<"Имя: ";
+            cin>>username;
+           if((username.find('?') != string::npos)||(username.find('\\') != string::npos)||(username.find('|') != string::npos)||
+              (username.find('/') != string::npos)||(username.find('*') != string::npos)||(username.find('\"') != string::npos)||(username.find(':') != string::npos)||(cin.fail()))
+                throw runtime_error("Errore INPUT! (Не допускаются символы: ? \ | / * \" : )");
+                proverka=0;
+        }
+        catch(const runtime_error &ex)
+        {
+            cout <<  ex.what() << endl;
+            cout<<"\nНажмите Enter чтобы ввести еще раз. . .";
+            cin.get();cin.get();
+
+        }
+    }while(proverka);
+
 
     ///Создание файлов пользователя
     int prov=0;
@@ -97,16 +83,36 @@ int main()
         switch(c)
         {
         case 1:{system("cls");
+                stringstream sstreambuf;
                 int day=0,month=0,year=0;
                 float cost=0;
                 string direction="";
+                string buf="";
                 cout<<"Введите данные для поиска билета\n (если вы не знаете что написать или не хотите вводить в какое-то поле, то просто нажмите Enter)\n";
-                cout<<"Введите дату\n";
-                cout<<"День:  ";   cin>>day;
-                cout<<"Месяц: ";   cin>>month;
-                cout<<"Год:   ";   cin>>year;
-                cout<<"Введите стоимость: ";cin>>cost;cin.get();
-                cout<<"Введите Пункт назначения: ";getline(cin,direction,'\n');
+                cout<<"Введите дату\n";cin.get();
+                cout<<"День:  ";   getline(cin,buf);
+                    if(buf==""){  sstreambuf<<0<<" "; }
+                    else { sstreambuf<<buf<<" ";  buf="";}
+                cout<<"Месяц: ";   getline(cin,buf);
+                    if(buf==""){  sstreambuf<<0<<" "; }
+                    else { sstreambuf<<buf<<" ";  buf="";}
+                cout<<"Год:   ";   getline(cin,buf);
+                    if(buf==""){  sstreambuf<<0<<" "; }
+                    else { sstreambuf<<buf<<" ";  buf="";}
+                cout<<"Введите стоимость: ";getline(cin,buf);
+                    if(buf==""){  sstreambuf<<0<<" "; }
+                    else { sstreambuf<<buf<<" ";  buf="";}
+                cout<<"Введите Пункт назначения: ";getline(cin,buf,'\n');
+                    if(buf==""){  sstreambuf<<""<<" "; }
+                    else { sstreambuf<<buf;  buf="";}
+                sstreambuf>>day;
+                sstreambuf>>month;
+                sstreambuf>>year;
+                sstreambuf>>cost;
+                sstreambuf.get();
+                getline(sstreambuf,direction);
+                getline(sstreambuf,buf);
+               // cout<<endl<<day<<endl<<month<<endl<<year<<endl<<cost<<endl<<direction<<"ffff";
                 first->buy(day, month,year, cost, direction,username);
                 cout<<"\nНажмите Enter чтобы вернутся в меню. . .";
                 cin.get();cin.get();
