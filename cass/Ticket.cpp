@@ -89,7 +89,7 @@ bool Ticket::find_ticket(int day, int month, int year, float cost, string direct
             Element *ptr=new Element;
             ptr->date[0]= mass[i-1].date[0];
             ptr->date[1]=mass[i-1].date[1];
-            ptr->date[2]=mass[i-1].date[1];
+            ptr->date[2]=mass[i-1].date[2];
             ptr->cost=mass[i-1].cost;
             ptr->direction=mass[i-1].direction;
             ptr->_next=_list;
@@ -246,8 +246,8 @@ void Ticket::buy(int day, int month, int year, float cost, string direction,stri
                 fuser<<s+1;
                 fuser.seekg(0,ios::end);
                 fuser<<ptr->date[0];    fuser<<" ";
-                fuser<<ptr->date[0];    fuser<<" ";
-                fuser<<ptr->date[0];    fuser<<" ";
+                fuser<<ptr->date[1];    fuser<<" ";
+                fuser<<ptr->date[2];    fuser<<" ";
                 fuser<<ptr->cost;       fuser<<" ";
                 fuser<<ptr->direction;  fuser<<"\n";
 
