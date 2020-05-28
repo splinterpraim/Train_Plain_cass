@@ -2,12 +2,21 @@
 Plane::Plane():Ticket()
 {
     name="Plane";
-    cout<<"конструктор P "<<endl;
 }
-Plane::Plane(const Plane& p){cout<<"конструктор коп P"<<endl;}
 Plane::~Plane()
 {
-    cout<<"деструктор P "<<endl;
+    Element *ptr=_list;
+    for(int i=0; i<_size;i++)
+    {
+       _list=ptr->_next;
+       delete ptr->_next;
+       ptr=_list;
+    }
+    _size=0;
+    ptr=nullptr;
+    delete ptr;
+    delete next;
+
 }
 
 

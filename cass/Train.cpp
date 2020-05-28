@@ -2,11 +2,19 @@
  Train::Train():Ticket()
  {
      name="Train";
-    cout<<"конструктор T "<<endl;
  }
-Train::Train(const Train& t){cout<<"конструктор коп T"<<endl;}
 Train::~Train()
 {
-    cout<<"деструктор T "<<endl;
+    Element *ptr=_list;
+    for(int i=0; i<_size;i++)
+    {
+       _list=ptr->_next;
+       delete ptr->_next;
+       ptr=_list;
+    }
+    _size=0;
+    ptr=nullptr;
+    delete ptr;
+    delete next;
 
 }

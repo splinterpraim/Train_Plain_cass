@@ -8,7 +8,7 @@ class Plane : public Ticket
     public:
         Plane();
         ~Plane();
-        Plane(const Plane& p);
+
 
 
 };

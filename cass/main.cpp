@@ -8,7 +8,7 @@
 #include "Plane.h"
 using namespace std;
 
-
+bool srvn_date(int day, int month, int year);
 int main()
 {
         setlocale(LC_ALL, "Rus");
@@ -16,22 +16,25 @@ int main()
         SetConsoleOutputCP(1251);//вывод
 
 
+
+
     int c;
     int exi=1;
     int proverka=1;
     string username;
-    cout<<"\n                       Добро пожаловать в программу \"ЭЛЕКТРОННАЯ КАССА\"\n";
-    cout<<"                      -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n";
-    cout<<"                            -- -- -- -- -- -- -- -- -- -- -- -- --  \n";
-    cout<<"\nВведите имя пользователя\n(Имя должно состоять из букв кирилицы или латинских букв, или цифр)\n(Не допускаются символы: ? \ | / * \" : ) \n";
 
 
     do
     {
         try
         {
+            system("cls");
+            cout<<"\n                       Добро пожаловать в программу \"ЭЛЕКТРОННАЯ КАССА\"\n";
+            cout<<"                      -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n";
+            cout<<"                            -- -- -- -- -- -- -- -- -- -- -- -- --  \n";
+            cout<<"\nВведите имя пользователя\n(Имя должно состоять из букв кирилицы или латинских букв, или цифр)\n(Не допускаются символы: ? \ | / * \" : ) \n";
             cout<<"Имя: ";
-            cin>>username;
+            getline(cin,username);
            if((username.find('?') != string::npos)||(username.find('\\') != string::npos)||(username.find('|') != string::npos)||
               (username.find('/') != string::npos)||(username.find('*') != string::npos)||(username.find('\"') != string::npos)||(username.find(':') != string::npos)||(cin.fail()))
                 throw runtime_error("Errore INPUT! (Не допускаются символы: ? \ | / * \" : )");
@@ -41,8 +44,7 @@ int main()
         {
             cout <<  ex.what() << endl;
             cout<<"\nНажмите Enter чтобы ввести еще раз. . .";
-            cin.get();cin.get();
-
+            cin.get();
         }
     }while(proverka);
 
@@ -79,7 +81,25 @@ int main()
         system("cls");
         cout<<"Выбирите что вы хотите сделать!\n";
         cout<<"1.Найти билет\n2.Посмотреть купленные билеты на Поезд\n3.Посмотреть купленные билеты на Самолет\n4.Выход\n";
-        cin>>c;
+
+        try
+        {
+            cin>>c;
+           if((c<1)||(c>4)||(cin.fail())||(cin.peek()!='\n'))
+                throw runtime_error("Errore INPUT! Нельзя вводить буквы и нельзя вводить цифры больше 4 или меньше 1");
+
+        }
+        catch(const runtime_error &ex)
+        {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout <<  ex.what() << endl;
+            cout<<"\nНажмите Enter чтобы ввести еще раз. . .";
+            cin.get();
+            c=0;
+
+        }
+
         switch(c)
         {
         case 1:{system("cls");
@@ -88,34 +108,135 @@ int main()
                 float cost=0;
                 string direction="";
                 string buf="";
-                cout<<"Введите данные для поиска билета\n (если вы не знаете что написать или не хотите вводить в какое-то поле, то просто нажмите Enter)\n";
-                cout<<"Введите дату\n";cin.get();
-                cout<<"День:  ";   getline(cin,buf);
-                    if(buf==""){  sstreambuf<<0<<" "; }
-                    else { sstreambuf<<buf<<" ";  buf="";}
-                cout<<"Месяц: ";   getline(cin,buf);
-                    if(buf==""){  sstreambuf<<0<<" "; }
-                    else { sstreambuf<<buf<<" ";  buf="";}
-                cout<<"Год:   ";   getline(cin,buf);
-                    if(buf==""){  sstreambuf<<0<<" "; }
-                    else { sstreambuf<<buf<<" ";  buf="";}
-                cout<<"Введите стоимость: ";getline(cin,buf);
-                    if(buf==""){  sstreambuf<<0<<" "; }
-                    else { sstreambuf<<buf<<" ";  buf="";}
-                cout<<"Введите Пункт назначения: ";getline(cin,buf,'\n');
-                    if(buf==""){  sstreambuf<<""<<" "; }
-                    else { sstreambuf<<buf;  buf="";}
-                sstreambuf>>day;
-                sstreambuf>>month;
-                sstreambuf>>year;
-                sstreambuf>>cost;
-                sstreambuf.get();
-                getline(sstreambuf,direction);
-                getline(sstreambuf,buf);
-               // cout<<endl<<day<<endl<<month<<endl<<year<<endl<<cost<<endl<<direction<<"ffff";
+                string panel="Введите данные для поиска билета\n (если вы не знаете что написать или не хотите вводить в какое-то поле, то просто нажмите Enter)\n";
+                cin.ignore(10000, '\n');
+                do
+                {
+                    system("cls");
+                    cout<<panel<<"Введите дату\n";
+                    cout<<"День: ";
+                    getline(cin,buf,'\n');
+                        if(buf==""){  day=0; proverka=0;}
+                        else {
+                                try
+                                {sstreambuf.clear();  sstreambuf<<buf;buf="";  sstreambuf>>day;
+                                    if((sstreambuf.fail())||(day>31)||(day<1)||(sstreambuf.peek()!=EOF))
+                                        throw runtime_error("Errore INPUT! Нельзя вводить буквы и нельзя вводить цифры больше 31 или меньше 1");
+                                    proverka=0;
+                                }
+                                catch(const runtime_error &ex)
+                                {
+                                    sstreambuf.clear();   sstreambuf.ignore(1000,'\n');
+                                    cout <<  ex.what() << endl;
+                                    cout<<"\nНажмите Enter чтобы ввести еще раз. . .";cin.get();
+                                    proverka=1;  day=0;
+                                }
+                            }
+                }while(proverka);
+
+                do
+                {
+                    system("cls");
+                    cout<<panel<<"Введите дату\n";
+                    cout<<"День: "<<day<<endl;
+                    cout<<"Месяц: ";
+                    getline(cin,buf,'\n');
+                        if(buf==""){  month=0; proverka=0;}
+                        else {
+                                try
+                                {sstreambuf.clear();   sstreambuf<<buf;buf="";   sstreambuf>>month;
+                                    if((sstreambuf.fail())||(month>12)||(month<1)||(sstreambuf.peek()!=EOF))
+                                        throw runtime_error("Errore INPUT! Нельзя вводить буквы и нельзя вводить цифры больше 12 или меньше 1");
+                                    proverka=0;
+                                }
+                                catch(const runtime_error &ex)
+                                {
+                                    sstreambuf.clear();  sstreambuf.ignore(1000,'\n');
+                                    cout <<  ex.what() << endl;
+                                    cout<<"\nНажмите Enter чтобы ввести еще раз. . .";cin.get();
+                                    proverka=1;  month=0;
+                                }
+                            }
+                }while(proverka);
+
+                do
+                {
+                    system("cls");
+                    cout<<panel<<"Введите дату\n";
+                    cout<<"День: "<<day<<endl;
+                    cout<<"Месяц: "<<month<<endl;
+                    cout<<"Год:   ";
+                    getline(cin,buf,'\n');
+                        if(buf==""){  year=0; proverka=0;}
+                        else {
+                                try
+                                {sstreambuf.clear();   sstreambuf<<buf;buf="";   sstreambuf>>year;
+                                    if((sstreambuf.fail())||(srvn_date(day,month,year))||(sstreambuf.peek()!=EOF))
+                                        throw runtime_error("Errore INPUT! Нельзя вводить буквы и нельзя вводить дату, которая находится в прошлом");
+                                    proverka=0;
+                                }
+                                catch(const runtime_error &ex)
+                                {
+                                    sstreambuf.clear();  sstreambuf.ignore(1000,'\n');
+                                    cout <<  ex.what() << endl;
+                                    cout<<"\nНажмите Enter чтобы ввести еще раз. . .";cin.get();
+                                    proverka=1;  year=0;
+                                }
+                            }
+                }while(proverka);
+
+                do
+                {
+                    system("cls");
+                    cout<<panel<<"Введите дату\n";
+                    cout<<"День: "<<day<<endl;
+                    cout<<"Месяц: "<<month<<endl;
+                    cout<<"Год:   "<<year<<endl;
+                    cout<<"Введите стоимость: ";
+                    getline(cin,buf,'\n');
+                        if(buf==""){  cost=0; proverka=0;}
+                        else {
+                                try
+                                {sstreambuf.clear();   sstreambuf<<buf;buf="";   sstreambuf>>cost;
+                                    if((sstreambuf.fail())||(cost<0)||(sstreambuf.peek()!=EOF))
+                                        throw runtime_error("Errore INPUT! Нельзя вводить буквы и нельзя вводить цифры меньше 0, также вводите стоимость через \'.\' (1226.56) ");
+                                    proverka=0;
+                                }
+                                catch(const runtime_error &ex)
+                                {
+                                    sstreambuf.clear();  sstreambuf.ignore(1000,'\n');
+                                    cout <<  ex.what() << endl;
+                                    cout<<"\nНажмите Enter чтобы ввести еще раз. . .";cin.get();
+                                    proverka=1;  cost=0;
+                                }
+                            }
+                }while(proverka);
+
+                system("cls");
+                cout<<panel<<"Введите дату\n";
+                cout<<"День: "<<day<<endl;
+                cout<<"Месяц: "<<month<<endl;
+                cout<<"Год:   "<<year<<endl;
+                cout<<"Введите стоимость: "<<cost<<endl;
+
+
+
+                cout<<"Введите Пункт назначения: ";getline(cin,direction,'\n');
+
+                system("cls");
+                cout<<panel<<"Введите дату\n";
+                cout<<"День: "<<day<<endl;
+                cout<<"Месяц: "<<month<<endl;
+                cout<<"Год:   "<<year<<endl;
+                cout<<"Введите стоимость: "<<cost<<endl;
+                cout<<"Введите Пункт назначения: ";
+                if(direction=="")cout<<"-"<<endl;
+                else cout<<direction<<endl;
+
+
                 first->buy(day, month,year, cost, direction,username);
                 cout<<"\nНажмите Enter чтобы вернутся в меню. . .";
-                cin.get();cin.get();
+                cin.get();
                 break;}
         case 2:{system("cls");
                 first->Show_user_s_ticket(username,1);
@@ -138,4 +259,46 @@ int main()
    delete first;
 
     return 0;
+}
+
+bool srvn_date(int day, int month, int year)
+{
+     SYSTEMTIME lt;
+    GetLocalTime(&lt);
+
+
+    if(((day==0)&&(month==0))||((day!=0)&&(month==0)))
+    {
+        if(year<lt.wYear) return 1;
+        else return 0;
+    }
+
+    if((day==0)&&(month!=0))
+    {
+        if(year<lt.wYear) return 1;
+        else if(year>lt.wYear) return 0;
+        else
+        {
+            if(month<lt.wMonth) return 1;
+            else if(month>lt.wMonth) return 0;
+        }
+     }
+
+     if((day!=0)&&(month!=0))
+     {
+
+        if(year<lt.wYear) return 1;
+        else if(year>lt.wYear) return 0;
+        else
+        {
+            if(month<lt.wMonth) return 1;
+            else if(month>lt.wMonth) return 0;
+            else
+            {
+                if(day<lt.wDay) return 1;
+                else return 0;
+            }
+        }
+     }
+
 }

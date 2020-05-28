@@ -16,7 +16,6 @@ class Ticket
 
     public:
     Ticket();
-    Ticket(const Ticket& t);
     virtual ~Ticket();
 
 

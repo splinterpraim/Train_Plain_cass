@@ -7,7 +7,6 @@ class Train : public Ticket
 {
     public:
         Train();
-        Train(const Train& t);
         ~Train();
 
 
