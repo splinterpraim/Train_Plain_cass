@@ -2,9 +2,9 @@
 #include <string>
 #include "Work_w_file.h"
 using namespace std;
-Work_w_file::Work_w_file() : _size(0),_list(nullptr){ }// без параметров
+Work_w_file::Work_w_file() : _size(0),_list(nullptr){ }
 
-Work_w_file::Work_w_file(const Work_w_file& w)//конструктор копирования
+Work_w_file::Work_w_file(const Work_w_file& w)
 {
     if(w._list)
     {
@@ -43,7 +43,7 @@ Work_w_file::Work_w_file(const Work_w_file& w)//конструктор копирования
 
 }
 
-Work_w_file::~Work_w_file()//деструктор
+Work_w_file::~Work_w_file()
 {
     Element *ptr=_list;
     for(int i=0; i<_size;i++)
@@ -58,12 +58,12 @@ Work_w_file::~Work_w_file()//деструктор
 void Work_w_file::Add()
 {
     Element *ptr=new Element;
-    cout<<"Введите дату\n";
-    cout<<"День:  ";   cin>>ptr->date[0];
-    cout<<"Месяц: ";   cin>>ptr->date[1];
-    cout<<"Год:   ";   cin>>ptr->date[2];
-    cout<<"Введите стоимость: ";cin>>ptr->cost;cin.get();
-    cout<<"Введите Пункт назначения: ";getline(cin,ptr->direction,'\n');
+    cout<<"Enter date\n";
+    cout<<"Day:  ";   cin>>ptr->date[0];
+    cout<<"Month: ";   cin>>ptr->date[1];
+    cout<<"Year:   ";   cin>>ptr->date[2];
+    cout<<"Enter cost: ";cin>>ptr->cost;cin.get();
+    cout<<"Enter Destination: ";getline(cin,ptr->direction,'\n');
 
     ptr->_next=_list;
     _list=ptr; ptr=nullptr; delete ptr;
@@ -77,7 +77,7 @@ void Work_w_file::Del()
     Show();
 
     int ndel;
-    cout<<"\nНапишите номер билета, который нужно удалить\nНомер: ";cin>>ndel;
+    cout<<"\nWrite the number of the ticket to be deleted\nNumber: ";cin>>ndel;
     ndel-=1;
 
     Element *ptr=_list, *ptr_last=nullptr;
@@ -106,7 +106,7 @@ void Work_w_file::Del()
        Show();
 
     int ndel;
-    cout<<"Напишите номер билета, который нужно редактировать\nНомер: ";cin>>ndel;
+    cout<<"Write the ticket number you want to edit\nNumber: ";cin>>ndel;
     ndel-=1;
       Element *ptr=_list;
     if(ndel)
@@ -116,26 +116,26 @@ void Work_w_file::Del()
             ptr=ptr->_next;
         }
     }
-    cout<<"Выберите что нужно редактировать \n";
-    cout<<"1.Дата\n2.Cтоимость\n3.Пункт назначения\n4.Все пункты\n";
+    cout<<"Choose what to edit \n";
+    cout<<"1.The date\n2.The cost\n3.The Destination\n4.All items\n";
     cin>>ndel;
     if((ndel==1)||(ndel==4))
     {
-        cout<<"Введите дату\n";
-        cout<<"День:  ";   cin>>ptr->date[0];
-        cout<<"Месяц: ";   cin>>ptr->date[1];
-        cout<<"Год:   ";   cin>>ptr->date[2];
+        cout<<"Enter date\n";
+        cout<<"Day:  ";   cin>>ptr->date[0];
+        cout<<"Month: ";   cin>>ptr->date[1];
+        cout<<"Year:   ";   cin>>ptr->date[2];
         Sort();
     }
 
     if((ndel==2)||(ndel==4))
     {
-        cout<<"Введите стоимость: ";cin>>ptr->cost;
+        cout<<"Enter cost: ";cin>>ptr->cost;
     }
 
     if((ndel==3)||(ndel==4))
     {   cin.get();
-        cout<<"Введите Пункт назначения: "; getline(cin,ptr->direction,'\n');
+        cout<<"Enter Destination: "; getline(cin,ptr->direction,'\n');
     }
     ptr=nullptr;
     delete ptr;
@@ -146,19 +146,19 @@ void Work_w_file::Del()
 
 void Work_w_file::Show()
 {
-    if(!_list){cout<<"Билетов нет\n";}
+    if(!_list){cout<<"No tickets\n";}
     else
     {
         Element *ptr=_list;
         for(int i=0;i<_size;i++)
         {
-            cout<<"БИЛЕТ № "<<i+1<<endl;
-            cout<<"Дата\n";
-            cout<<"День:  "<<ptr->date[0]<<endl;
-            cout<<"Месяц: "<<ptr->date[1]<<endl;
-            cout<<"Год:   "<<ptr->date[2]<<endl;
-            cout<<"Cтоимость:  "<<ptr->cost<<endl;
-            cout<<"Пункт назначения: "<<ptr->direction<<endl;
+            cout<<"TICKET # "<<i+1<<endl;
+            cout<<"The date\n";
+            cout<<"Day:  "<<ptr->date[0]<<endl;
+            cout<<"Month: "<<ptr->date[1]<<endl;
+            cout<<"Year:   "<<ptr->date[2]<<endl;
+            cout<<"Cost:  "<<ptr->cost<<endl;
+            cout<<"Destination: "<<ptr->direction<<endl;
             ptr=ptr->_next;
         }
         ptr=nullptr;
@@ -189,7 +189,7 @@ void Work_w_file::Put_in_file(string f)
 
 void Work_w_file::Get_from_file(string f)
 {
-    //удалить предыдущую очередь
+
     Element *ptr=_list;
     for(int i=0; i<_size;i++)
     {
@@ -249,7 +249,7 @@ void Work_w_file::Sort()
     Element *ptr=_list;
     Element Tmp[_size];
 
-    //перенос в массив
+
     for(int i=0; i<_size;i++)
     {
         Tmp[i].date[0]=ptr->date[0];     ptr->date[0]=0;
@@ -260,7 +260,7 @@ void Work_w_file::Sort()
         ptr=ptr->_next;
     }
 
-    //сортировка
+
     int buf[3];
     float buf_c;
     string buf_di;
@@ -271,7 +271,7 @@ void Work_w_file::Sort()
         {
             if( Tmp[i].date[2] > Tmp[i+1].date[2])
             {
-                buf[0]=Tmp[i].date[0];//менять
+                buf[0]=Tmp[i].date[0];
                 buf[1]=Tmp[i].date[1];
                 buf[2]=Tmp[i].date[2];
                 buf_c=Tmp[i].cost;
@@ -294,7 +294,7 @@ void Work_w_file::Sort()
             {
                 if( Tmp[i].date[1] > Tmp[i+1].date[1])
                 {
-                    buf[0]=Tmp[i].date[0];//менять
+                    buf[0]=Tmp[i].date[0];
                     buf[1]=Tmp[i].date[1];
                     buf[2]=Tmp[i].date[2];
                     buf_c=Tmp[i].cost;
@@ -316,7 +316,7 @@ void Work_w_file::Sort()
                 {
                     if( Tmp[i].date[0] > Tmp[i+1].date[0])
                     {
-                        buf[0]=Tmp[i].date[0];//менять
+                        buf[0]=Tmp[i].date[0];
                         buf[1]=Tmp[i].date[1];
                         buf[2]=Tmp[i].date[2];
                         buf_c=Tmp[i].cost;

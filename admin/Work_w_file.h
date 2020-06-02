@@ -17,20 +17,20 @@ private:
 
 
 public:
-	Work_w_file();//конструктор
-	Work_w_file(const Work_w_file& w);//конструктор копирования
-	~Work_w_file();//деструктор
+	Work_w_file();
+	Work_w_file(const Work_w_file& w);
+	~Work_w_file();
 
 
-    void Add();//+
-    void Del();//+
-    void Redact();//+
-    void Show();//+
-    void SaveBackup(string f);//+
-    void Recovery(string f);//+
+    void Add();
+    void Del();
+    void Redact();
+    void Show();
+    void SaveBackup(string f);
+    void Recovery(string f);
 
-    void Put_in_file(string f);//+
-    void Get_from_file(string f);//+
+    void Put_in_file(string f);
+    void Get_from_file(string f);
 
     void Sort();
 

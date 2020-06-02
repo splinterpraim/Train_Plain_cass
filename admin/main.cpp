@@ -11,8 +11,8 @@ using namespace std;
 int main()
 {
      setlocale(LC_ALL, "Rus");
-     SetConsoleCP(1251);//ввод кодировки
-     SetConsoleOutputCP(1251);//вывод
+     SetConsoleCP(1251);
+     SetConsoleOutputCP(1251);
 
      int c;
      int exi=1;
@@ -22,8 +22,8 @@ int main()
      do
      {
         system("cls");
-        cout<<"Выберите с какой базой данных вы хотите работать\n";
-        cout<<"1.Поезда\n2.Самолеты\n3.Выход\n";
+        cout<<"Choose which database you want to work with\n";
+        cout<<"1.The trains\n2.Aircraft\n3.Exit\n";
         cin>>c;
         if(c==1) type_BD="Train";
         else if(c==2) type_BD="Plane";
@@ -33,38 +33,38 @@ int main()
         do
         {
             system("cls");
-            cout<<"1.Показать\n2.Добавить\n3.Удалить\n4.Редактировать\n5.Резервное сохранение\n6.Восстановление записей\n7.Выход в меню\n";
+            cout<<"1.Show\n2.Add\n3.Delete\n4.Edit\n5.Backup save\n6.Record Recovery\n7.Exit to the menu\n";
             cin>>c;
             switch(c)
             {
             case 1:{system("cls");
                     s.Show();
-                    cout<<"\nНажмите Enter чтобы вернутся в меню. . .";
+                    cout<<"\nPress Enter to return to the menu. . .";
                     cin.get();cin.get();
                     break;}
             case 2:{system("cls");
                     s.Add();
-                    cout<<"\nВы добавили билет!\nНажмите Enter чтобы вернутся в меню. . .";
+                    cout<<"\nYou added a ticket!\nPress Enter to return to the menu. . .";
                     cin.get();
                     break;}
             case 3:{system("cls");
                     s.Del();
-                    cout<<"\nБилет удален!\nНажмите Enter чтобы вернутся в меню. . .";
+                    cout<<"\nTicket Deleted!\nPress Enter to return to the menu. . .";
                     cin.get();cin.get();
                     break;}
             case 4:{system("cls");
                     s.Redact();
-                    cout<<"\nБилет отредактирован!\nНажмите Enter чтобы вернутся в меню. . .";
+                    cout<<"\nTicket edited!\nPress Enter to return to the menu. . .";
                     cin.get();cin.get();
                     break;}
             case 5:{system("cls");
                     s.SaveBackup(type_BD);
-                    cout<<"\nРезервное копирование сделано!\nНажмите Enter чтобы вернутся в меню. . .";
+                    cout<<"\nРbackup done!\nPress Enter to return to the menu. . .";
                     cin.get();cin.get();
                     break;}
             case 6:{system("cls");
                     s.Recovery(type_BD);
-                    cout<<"\nЗаписи восстановлены!\nНажмите Enter чтобы вернутся в меню. . .";
+                    cout<<"\nRecords restored!\nPress Enter to return to the menu. . .";
                     cin.get();cin.get();
                     break;}
             case 7:{system("cls");

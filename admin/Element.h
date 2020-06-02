@@ -4,9 +4,9 @@
 using namespace std;
 struct Element
 {
-    int date[3];//дата [день, месяц, год]
-	float cost;//стоимость
-	string direction;//направление
+    int date[3];
+	float cost;
+	string direction;
 	Element *_next;
 
 
