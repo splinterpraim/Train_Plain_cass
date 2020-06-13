@@ -1,4 +1,4 @@
-#include <fstream>
+﻿#include <fstream>
 #include <stdexcept>
 #include "Ticket.h"
 Ticket::Ticket()
@@ -45,13 +45,13 @@ bool Ticket::find_ticket(int day, int month, int year, float cost, string direct
     {
 
         if(!fin.is_open())
-            throw runtime_error("Errore DATABASE! NO DATABASE "+name);
+            throw runtime_error("Errore DATABASE! Нет базы данных "+name);
 
     }
     catch(const runtime_error &ex)
     {
         cout <<  ex.what() << endl;
-        cout<<"\nPress Enter to continue. . .";
+        cout<<"\nНажмите Enter чтобы продолжить. . .";
         cin.get();
         return 0;
 
@@ -111,13 +111,13 @@ void Ticket::Show()
         for(int i=0;i<_size;i++)
         {
 
-            cout<<endl<<"TICKET # "<<i+1<<endl;
-            cout<<"Date\n";
-            cout<<"Day:  "<<ptr->date[0]<<endl;
-            cout<<"Month: "<<ptr->date[1]<<endl;
-            cout<<"Year:   "<<ptr->date[2]<<endl;
-            cout<<"Cost:  "<<ptr->cost<<endl;
-            cout<<"Destination: "<<ptr->direction<<endl;
+            cout<<endl<<"БИЛЕТ № "<<i+1<<endl;
+            cout<<"Дата\n";
+            cout<<"День:  "<<ptr->date[0]<<endl;
+            cout<<"Месяц: "<<ptr->date[1]<<endl;
+            cout<<"Год:   "<<ptr->date[2]<<endl;
+            cout<<"Стоимость:  "<<ptr->cost<<endl;
+            cout<<"Пункт назначениия: "<<ptr->direction<<endl;
             ptr=ptr->_next;
         }
         ptr=nullptr;
@@ -133,10 +133,10 @@ void Ticket::Show_user_s_ticket(string username,int choose)
     float cost_f;
     string dir_f;
     if(choose==2){next->Show_user_s_ticket(username,1);return;}
-    cout<<"Purchased tickets\n";
+    cout<<"Купленные билеты\n";
     ifstream fin("users/"+username+"_"+name+".txt", ios::in);
     fin>>s;
-    if(!s){cout<<"No tickets\n";}
+    if(!s){cout<<"Нет билетов\n";}
     else
     for(int i=0;i<s;i++)
     {
@@ -146,13 +146,13 @@ void Ticket::Show_user_s_ticket(string username,int choose)
         fin>>cost_f;fin.get();
         getline(fin,dir_f);
 
-        cout<<endl<<"TICKET # "<<i+1<<endl;
-        cout<<"Date\n";
-        cout<<"Day:  "<<d[0]<<endl;
-        cout<<"Month: "<<d[1]<<endl;
-        cout<<"Year:   "<<d[2]<<endl;
-        cout<<"Cost:  "<<cost_f<<endl;
-        cout<<"Destination: "<<dir_f<<endl;
+        cout<<endl<<"БИЛЕТ № "<<i+1<<endl;
+        cout<<"Дата\n";
+        cout<<"День:  "<<d[0]<<endl;
+        cout<<"Месяц: "<<d[1]<<endl;
+        cout<<"Год:   "<<d[2]<<endl;
+        cout<<"Стоимость:  "<<cost_f<<endl;
+        cout<<"Пункт назначения: "<<dir_f<<endl;
     }
     fin.close();
 }
@@ -161,24 +161,24 @@ void Ticket::buy(int day, int month, int year, float cost, string direction,stri
 
         if(find_ticket(day, month, year, cost, direction))
         {
-            cout<<"                     ===================="<<endl;
-            cout<<"                    ||  "<<name<<" tickets  ||"<<endl;
+            cout<<"                     ========================="<<endl;
+            cout<<"                    || Билеты на "<<name<<"   ||"<<endl;
             cout<<"=============================================================="<<endl;
             Show();
             cout<<"=============================================================="<<endl;
-            cout<<"Tickets found: "<<_size<<endl;
+            cout<<"Билетов найдено: "<<_size<<endl;
             int num=1;
             int prov=1;
             if(_size>1)
             {
                 do
                 {
-                    cout<<endl<<"Choose the ticket you want to buy\nNumber: ";
+                    cout<<endl<<"Выберите билет который хотите купить\nНомер: ";
                     try
                     {
                         cin>>num;
                        if((num>_size)||(num<1)||(cin.fail())||(cin.peek()!='\n'))
-                            throw runtime_error("Errore INPUT! You cannot enter letters or enter numbers greater than the number of tickets or less than 1");
+                            throw runtime_error("Errore INPUT! Нельзя вводить буквы или цифры больше количества билетов или меньше 1");
                         prov=0;
                     }
                     catch(const runtime_error &ex)
@@ -186,7 +186,7 @@ void Ticket::buy(int day, int month, int year, float cost, string direction,stri
                         cin.clear();
                         cin.ignore(10000, '\n');
                         cout <<  ex.what() << endl;
-                        cout<<"\nPress Enter to enter again. . .";
+                        cout<<"\nНажмите Enter чтобы ввести еще раз. . .";
                         cin.get();
                         num=0;
                         prov=1;
@@ -201,13 +201,13 @@ void Ticket::buy(int day, int month, int year, float cost, string direction,stri
                 {
                     ptr=ptr->_next;
                 }
-                cout<<endl<<"TICKET # "<<num<<endl;
-                cout<<"Date\n";
-                cout<<"Day:  "<<ptr->date[0]<<endl;
-                cout<<"Month: "<<ptr->date[1]<<endl;
-                cout<<"Year:   "<<ptr->date[2]<<endl;
-                cout<<"Cost:  "<<ptr->cost<<endl;
-                cout<<"Destination: "<<ptr->direction<<endl;
+                cout<<endl<<"БИЛЕТ № "<<num<<endl;
+                cout<<"Дата\n";
+                cout<<"День:  "<<ptr->date[0]<<endl;
+                cout<<"Месяц: "<<ptr->date[1]<<endl;
+                cout<<"Год:   "<<ptr->date[2]<<endl;
+                cout<<"Стоимость:  "<<ptr->cost<<endl;
+                cout<<"Пункт назначения: "<<ptr->direction<<endl;
             }
 
 
@@ -215,12 +215,12 @@ void Ticket::buy(int day, int month, int year, float cost, string direction,stri
 
             do
             {
-                cout<<endl<<"Confirm Ticket purchase #"<<num<<"\n(y/n): ";
+                cout<<endl<<"Подтвердите покупку билета #"<<num<<"\n(y/n): ";
                 try
                 {
                     cin>>T;
                     if(!((T=='y')||(T=='n'))||(cin.fail())||(cin.peek()!='\n'))
-                        throw runtime_error("Errore INPUT! Enter only \'y\' or \'n\'");
+                        throw runtime_error("Errore INPUT! Вводите только \'y\' или \'n\'");
                     prov=0;
                 }
                 catch(const runtime_error &ex)
@@ -228,7 +228,7 @@ void Ticket::buy(int day, int month, int year, float cost, string direction,stri
                     cin.clear();
                     cin.ignore(10000, '\n');
                     cout <<  ex.what() << endl;
-                    cout<<"\nPress Enter to enter again. . .";
+                    cout<<"\nНажмите Enter чтобы ввести еще раз. . .";
                     cin.get();
                     T='n';
                     prov=1;
@@ -252,7 +252,7 @@ void Ticket::buy(int day, int month, int year, float cost, string direction,stri
                 fuser<<ptr->direction;  fuser<<"\n";
 
                 fuser.close();
-                cout<<"Ticket purchased\n";
+                cout<<"Билет куплен\n";
 
             }
             ptr=nullptr;
@@ -266,7 +266,7 @@ void Ticket::buy(int day, int month, int year, float cost, string direction,stri
         }
         else
         {
-            cout<<"No route found \n";
+            cout<<"Маршрут не найден \n";
         }
 
 }

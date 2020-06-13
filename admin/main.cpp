@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include "windows.h"
 #include "Work_w_file.h"
 
@@ -22,8 +22,8 @@ int main()
      do
      {
         system("cls");
-        cout<<"Choose which database you want to work with\n";
-        cout<<"1.The trains\n2.Aircraft\n3.Exit\n";
+        cout<<"Выберите с какой базой данных вы хотите работать\n";
+        cout<<"1.Поезда\n2.Самолеты\n3.Выход\n";
         cin>>c;
         if(c==1) type_BD="Train";
         else if(c==2) type_BD="Plane";
@@ -33,38 +33,38 @@ int main()
         do
         {
             system("cls");
-            cout<<"1.Show\n2.Add\n3.Delete\n4.Edit\n5.Backup save\n6.Record Recovery\n7.Exit to the menu\n";
+            cout<<"1.Показать\n2.Добавить\n3.Удалить\n4.Изменить\n5.Резервное сохранение\n6.Восстановление записей\n7.Выход в меню\n";
             cin>>c;
             switch(c)
             {
             case 1:{system("cls");
                     s.Show();
-                    cout<<"\nPress Enter to return to the menu. . .";
+                    cout<<"\nНажмите Enter чтобы вернутся в меню. . .";
                     cin.get();cin.get();
                     break;}
             case 2:{system("cls");
                     s.Add();
-                    cout<<"\nYou added a ticket!\nPress Enter to return to the menu. . .";
+                    cout<<"\nВы добавили билет!\nНажмите Enter чтобы вернутся в меню. . .";
                     cin.get();
                     break;}
             case 3:{system("cls");
                     s.Del();
-                    cout<<"\nTicket Deleted!\nPress Enter to return to the menu. . .";
+                    cout<<"\nБилет удален!\nНажмите Enter чтобы вернутся в меню. . .";
                     cin.get();cin.get();
                     break;}
             case 4:{system("cls");
                     s.Redact();
-                    cout<<"\nTicket edited!\nPress Enter to return to the menu. . .";
+                    cout<<"\nБилет изменен!\nНажмите Enter чтобы вернутся в меню. . .";
                     cin.get();cin.get();
                     break;}
             case 5:{system("cls");
                     s.SaveBackup(type_BD);
-                    cout<<"\n�backup done!\nPress Enter to return to the menu. . .";
+                    cout<<"\nРезервное сохранение выполнено!\nНажмите Enter чтобы вернутся в меню. . .";
                     cin.get();cin.get();
                     break;}
             case 6:{system("cls");
                     s.Recovery(type_BD);
-                    cout<<"\nRecords restored!\nPress Enter to return to the menu. . .";
+                    cout<<"\nЗаписи восстановлены!\nНажмите Enter чтобы вернутся в меню. . .";
                     cin.get();cin.get();
                     break;}
             case 7:{system("cls");

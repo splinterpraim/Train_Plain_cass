@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include "Work_w_file.h"
 using namespace std;
@@ -58,12 +58,12 @@ Work_w_file::~Work_w_file()
 void Work_w_file::Add()
 {
     Element *ptr=new Element;
-    cout<<"Enter date\n";
-    cout<<"Day:  ";   cin>>ptr->date[0];
-    cout<<"Month: ";   cin>>ptr->date[1];
-    cout<<"Year:   ";   cin>>ptr->date[2];
-    cout<<"Enter cost: ";cin>>ptr->cost;cin.get();
-    cout<<"Enter Destination: ";getline(cin,ptr->direction,'\n');
+    cout<<"Введите дату\n";
+    cout<<"День:  ";   cin>>ptr->date[0];
+    cout<<"Месяц: ";   cin>>ptr->date[1];
+    cout<<"Год:   ";   cin>>ptr->date[2];
+    cout<<"Введите стоимость: ";cin>>ptr->cost;cin.get();
+    cout<<"Введите направление: ";getline(cin,ptr->direction,'\n');
 
     ptr->_next=_list;
     _list=ptr; ptr=nullptr; delete ptr;
@@ -77,7 +77,7 @@ void Work_w_file::Del()
     Show();
 
     int ndel;
-    cout<<"\nWrite the number of the ticket to be deleted\nNumber: ";cin>>ndel;
+    cout<<"\nНапишите номер билета, который хотите удалить\nНомер: ";cin>>ndel;
     ndel-=1;
 
     Element *ptr=_list, *ptr_last=nullptr;
@@ -106,7 +106,7 @@ void Work_w_file::Del()
        Show();
 
     int ndel;
-    cout<<"Write the ticket number you want to edit\nNumber: ";cin>>ndel;
+    cout<<"Напишите номер билета, который хотите изменить\nНомер: ";cin>>ndel;
     ndel-=1;
       Element *ptr=_list;
     if(ndel)
@@ -116,26 +116,26 @@ void Work_w_file::Del()
             ptr=ptr->_next;
         }
     }
-    cout<<"Choose what to edit \n";
-    cout<<"1.The date\n2.The cost\n3.The Destination\n4.All items\n";
+    cout<<"Выберите что изменить \n";
+    cout<<"1.Дата\n2.Цена\n3.Направление\n4.Все пункты\n";
     cin>>ndel;
     if((ndel==1)||(ndel==4))
     {
-        cout<<"Enter date\n";
-        cout<<"Day:  ";   cin>>ptr->date[0];
-        cout<<"Month: ";   cin>>ptr->date[1];
-        cout<<"Year:   ";   cin>>ptr->date[2];
+        cout<<"Введите дату\n";
+        cout<<"День:  ";   cin>>ptr->date[0];
+        cout<<"Месяц: ";   cin>>ptr->date[1];
+        cout<<"Год:   ";   cin>>ptr->date[2];
         Sort();
     }
 
     if((ndel==2)||(ndel==4))
     {
-        cout<<"Enter cost: ";cin>>ptr->cost;
+        cout<<"Введите стоимость: ";cin>>ptr->cost;
     }
 
     if((ndel==3)||(ndel==4))
     {   cin.get();
-        cout<<"Enter Destination: "; getline(cin,ptr->direction,'\n');
+        cout<<"Введите направление: "; getline(cin,ptr->direction,'\n');
     }
     ptr=nullptr;
     delete ptr;
@@ -146,19 +146,19 @@ void Work_w_file::Del()
 
 void Work_w_file::Show()
 {
-    if(!_list){cout<<"No tickets\n";}
+    if(!_list){cout<<"Нет билетов\n";}
     else
     {
         Element *ptr=_list;
         for(int i=0;i<_size;i++)
         {
-            cout<<"TICKET # "<<i+1<<endl;
-            cout<<"The date\n";
-            cout<<"Day:  "<<ptr->date[0]<<endl;
-            cout<<"Month: "<<ptr->date[1]<<endl;
-            cout<<"Year:   "<<ptr->date[2]<<endl;
-            cout<<"Cost:  "<<ptr->cost<<endl;
-            cout<<"Destination: "<<ptr->direction<<endl;
+            cout<<"БИЛЕТ № "<<i+1<<endl;
+            cout<<"Дата\n";
+            cout<<"День:  "<<ptr->date[0]<<endl;
+            cout<<"Месяц: "<<ptr->date[1]<<endl;
+            cout<<"Год:   "<<ptr->date[2]<<endl;
+            cout<<"Стоимость:  "<<ptr->cost<<endl;
+            cout<<"Направление: "<<ptr->direction<<endl;
             ptr=ptr->_next;
         }
         ptr=nullptr;

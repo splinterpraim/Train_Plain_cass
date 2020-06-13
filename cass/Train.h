@@ -1,4 +1,4 @@
-#ifndef TRAIN_H_INCLUDED
+﻿#ifndef TRAIN_H_INCLUDED
 #define TRAIN_H_INCLUDED
 #include <iostream>
 #include  <windows.h>

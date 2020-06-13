@@ -1,12 +1,11 @@
-#ifndef WORK_W_FILE_H_INCLUDED
+﻿#ifndef WORK_W_FILE_H_INCLUDED
 #define WORK_W_FILE_H_INCLUDED
 #include <iostream>
 #include <string>
 #include <fstream>
 #include "Element.h"
 
-/*1.Показать  2.Добавить  3.Удалить  4.Редоктировать  5.Резервное сохранение  6.Восстановление записей
-*/
+
 using namespace std;
 
 class Work_w_file{

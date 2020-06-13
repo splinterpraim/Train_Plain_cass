@@ -1,4 +1,4 @@
-#include "Train.h"
+﻿#include "Train.h"
  Train::Train():Ticket()
  {
      name="Train";

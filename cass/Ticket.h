@@ -1,4 +1,4 @@
-#ifndef TICKET_H_INCLUDED
+﻿#ifndef TICKET_H_INCLUDED
 #define TICKET_H_INCLUDED
 #include <iostream>
 #include  <windows.h>

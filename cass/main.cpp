@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include  <windows.h>
 #include <fstream>
 #include <sstream>
@@ -29,15 +29,15 @@ int main()
         try
         {
             system("cls");
-            cout<<"\n                       Welcome to program \"ELECTRONIC CASH\"\n";
+            cout<<"\n                       Добро пожаловать в программу \"Электронная касса\"\n";
             cout<<"                      -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n";
             cout<<"                            -- -- -- -- -- -- -- -- -- -- -- -- --  \n";
-            cout<<"\nEnter username\n(The name must consist of Cyrillic letters or Latin letters, or numbers)\n(No characters allowed: ? \ | / * \" : ) \n";
-            cout<<"Username: ";
+            cout<<"\nВведите имя\n(Имя может содержать кирилицу, латинские буквы или числа)\n(Не допускаются символы: ? \ | / * \" : ) \n";
+            cout<<"Имя: ";
             getline(cin,username);
            if((username.find('?') != string::npos)||(username.find('\\') != string::npos)||(username.find('|') != string::npos)||
               (username.find('/') != string::npos)||(username.find('*') != string::npos)||(username.find('\"') != string::npos)||(username.find(':') != string::npos)||(cin.fail()))
-                throw runtime_error("Errore INPUT! (No characters allowed: ? \ | / * \" : )");
+                throw runtime_error("Errore INPUT! (Не допускаются символы: ? \ | / * \" : )");
                 proverka=0;
         }
         catch(const runtime_error &ex)
@@ -49,7 +49,7 @@ int main()
     }while(proverka);
 
 
-    ///Creating user files
+    ///Создание файла пользователя
     int prov=0;
     fstream creat_T("users/"+username+"_Train"+".txt");
     if(!(creat_T.is_open()))
@@ -79,14 +79,14 @@ int main()
     do
      {
         system("cls");
-        cout<<"Choose what you want to do!\n";
-        cout<<"1.Find a ticket\n2.View purchased Train tickets\n3.View purchased Plane tickets\n4.Exit\n";
+        cout<<"Выберите что вы хотите сделать!\n";
+        cout<<"1.Найти билет\n2.Посмотреть купленные билеты на Поезд\n3.Посмотреть купленные билеты на Самолет\n4.Выход\n";
 
         try
         {
             cin>>c;
            if((c<1)||(c>4)||(cin.fail())||(cin.peek()!='\n'))
-                throw runtime_error("Errore INPUT! You cannot enter letters and you cannot enter numbers greater than 4 or less than 1");
+                throw runtime_error("Errore INPUT! Нельзя вводить буквы или цифры больше 4 и меньше 1");
 
         }
         catch(const runtime_error &ex)
@@ -94,7 +94,7 @@ int main()
             cin.clear();
             cin.ignore(10000, '\n');
             cout <<  ex.what() << endl;
-            cout<<"\nPress Enter to enter again. . .";
+            cout<<"\nНажмите Enter чтобы ввести еще раз. . .";
             cin.get();
             c=0;
 
@@ -108,27 +108,27 @@ int main()
                 float cost=0;
                 string direction="";
                 string buf="";
-                string panel="Enter your ticket search details\n (if you don�t know what to write or don�t want to type in any field, then just press Enter)\n";
+                string panel="Введите данные для поиска билета\n (если вы не знаете что написать или не хотите вводить какое-то поле, то просто нажмите Enter)\n";
                 cin.ignore(10000, '\n');
                 do
                 {
                     system("cls");
-                    cout<<panel<<"Enter date\n";
-                    cout<<"Day: ";
+                    cout<<panel<<"Введите дату\n";
+                    cout<<"День: ";
                     getline(cin,buf,'\n');
                         if(buf==""){  day=0; proverka=0;}
                         else {
                                 try
                                 {sstreambuf.clear();  sstreambuf<<buf;buf="";  sstreambuf>>day;
                                     if((sstreambuf.fail())||(day>31)||(day<1)||(sstreambuf.peek()!=EOF))
-                                        throw runtime_error("Errore INPUT! You cannot enter letters or enter numbers greater than 31 or less than 1");
+                                        throw runtime_error("Errore INPUT! Нельзя вводить буквы или цифры больше 31 и меньше 1");
                                     proverka=0;
                                 }
                                 catch(const runtime_error &ex)
                                 {
                                     sstreambuf.clear();   sstreambuf.ignore(1000,'\n');
                                     cout <<  ex.what() << endl;
-                                    cout<<"\nPress Enter to enter again. . .";cin.get();
+                                    cout<<"\nНажмите Enter чтобы ввести еще раз. . .";cin.get();
                                     proverka=1;  day=0;
                                 }
                             }
@@ -137,23 +137,23 @@ int main()
                 do
                 {
                     system("cls");
-                    cout<<panel<<"Enter date\n";
-                    cout<<"Day: "<<day<<endl;
-                    cout<<"Month: ";
+                    cout<<panel<<"Введите дату\n";
+                    cout<<"День: "<<day<<endl;
+                    cout<<"Месяц: ";
                     getline(cin,buf,'\n');
                         if(buf==""){  month=0; proverka=0;}
                         else {
                                 try
                                 {sstreambuf.clear();   sstreambuf<<buf;buf="";   sstreambuf>>month;
                                     if((sstreambuf.fail())||(month>12)||(month<1)||(sstreambuf.peek()!=EOF))
-                                        throw runtime_error("Errore INPUT! You cannot enter letters or enter numbers greater than 12 or less than 1");
+                                        throw runtime_error("Errore INPUT! Нельзя вводить буквы или цифры больше 12 и меньше 1");
                                     proverka=0;
                                 }
                                 catch(const runtime_error &ex)
                                 {
                                     sstreambuf.clear();  sstreambuf.ignore(1000,'\n');
                                     cout <<  ex.what() << endl;
-                                    cout<<"\nPress Enter to enter again. . .";cin.get();
+                                    cout<<"\nНажмите Enter чтобы ввести еще раз. . .";cin.get();
                                     proverka=1;  month=0;
                                 }
                             }
@@ -162,24 +162,24 @@ int main()
                 do
                 {
                     system("cls");
-                    cout<<panel<<"Enter date\n";
-                    cout<<"Day: "<<day<<endl;
-                    cout<<"Month: "<<month<<endl;
-                    cout<<"Year:   ";
+                    cout<<panel<<"Введите дату\n";
+                    cout<<"День: "<<day<<endl;
+                    cout<<"Месяц: "<<month<<endl;
+                    cout<<"Год:   ";
                     getline(cin,buf,'\n');
                         if(buf==""){  year=0; proverka=0;}
                         else {
                                 try
                                 {sstreambuf.clear();   sstreambuf<<buf;buf="";   sstreambuf>>year;
                                     if((sstreambuf.fail())||(srvn_date(day,month,year))||(sstreambuf.peek()!=EOF))
-                                        throw runtime_error("Errore INPUT! You cannot enter letters or enter a date that is in the past");
+                                        throw runtime_error("Errore INPUT! Нельзя вводить буквы и нельзя вводить дату, которая находится в прошлом");
                                     proverka=0;
                                 }
                                 catch(const runtime_error &ex)
                                 {
                                     sstreambuf.clear();  sstreambuf.ignore(1000,'\n');
                                     cout <<  ex.what() << endl;
-                                    cout<<"\nPress Enter to enter again. . .";cin.get();
+                                    cout<<"\nНажмите Enter чтобы ввести еще раз. . .";cin.get();
                                     proverka=1;  year=0;
                                 }
                             }
@@ -188,64 +188,64 @@ int main()
                 do
                 {
                     system("cls");
-                    cout<<panel<<"Enter date\n";
-                    cout<<"Day: "<<day<<endl;
-                    cout<<"Month: "<<month<<endl;
-                    cout<<"Year:   "<<year<<endl;
-                    cout<<"Enter cost: ";
+                    cout<<panel<<"Введите дату\n";
+                    cout<<"День: "<<day<<endl;
+                    cout<<"Месяц: "<<month<<endl;
+                    cout<<"Год:   "<<year<<endl;
+                    cout<<"Введите стоимость: ";
                     getline(cin,buf,'\n');
                         if(buf==""){  cost=0; proverka=0;}
                         else {
                                 try
                                 {sstreambuf.clear();   sstreambuf<<buf;buf="";   sstreambuf>>cost;
                                     if((sstreambuf.fail())||(cost<0)||(sstreambuf.peek()!=EOF))
-                                        throw runtime_error("Errore INPUT! You can not enter letters and you can not enter numbers less than 0, also enter the cost using \'.\' (1226.56) ");
+                                        throw runtime_error("Errore INPUT! Нельзя вводить буквы и цифры меньше 1, также при вводе используйте \'.\' (1226.56) ");
                                     proverka=0;
                                 }
                                 catch(const runtime_error &ex)
                                 {
                                     sstreambuf.clear();  sstreambuf.ignore(1000,'\n');
                                     cout <<  ex.what() << endl;
-                                    cout<<"\nPress Enter to enter again. . .";cin.get();
+                                    cout<<"\nНажмите Enter чтобы ввести еще раз. . .";cin.get();
                                     proverka=1;  cost=0;
                                 }
                             }
                 }while(proverka);
 
                 system("cls");
-                cout<<panel<<"Enter date\n";
-                cout<<"Day: "<<day<<endl;
-                cout<<"Month: "<<month<<endl;
-                cout<<"Year:   "<<year<<endl;
-                cout<<"Enter cost: "<<cost<<endl;
+                cout<<panel<<"Введите дату\n";
+                cout<<"День: "<<day<<endl;
+                cout<<"Месяц: "<<month<<endl;
+                cout<<"Год:   "<<year<<endl;
+                cout<<"Введите стоимость: "<<cost<<endl;
 
 
 
-                cout<<"Enter Destination: ";getline(cin,direction,'\n');
+                cout<<"Введите Пункт назначения: ";getline(cin,direction,'\n');
 
                 system("cls");
-                cout<<panel<<"Enter date\n";
-                cout<<"Day: "<<day<<endl;
-                cout<<"Month: "<<month<<endl;
-                cout<<"Year:   "<<year<<endl;
-                cout<<"Enter cost: "<<cost<<endl;
-                cout<<"Enter Destination: ";
+                cout<<panel<<"Введите дату\n";
+                cout<<"День: "<<day<<endl;
+                cout<<"Месяц: "<<month<<endl;
+                cout<<"Год:   "<<year<<endl;
+                cout<<"Введите стоимость: "<<cost<<endl;
+                cout<<"Введите Пункт назначения: ";
                 if(direction=="")cout<<"-"<<endl;
                 else cout<<direction<<endl;
 
 
                 first->buy(day, month,year, cost, direction,username);
-                cout<<"\nPress Enter to return to the menu. . .";
+                cout<<"\nНажмите Enter чтобы вернуться в меню. . .";
                 cin.get();
                 break;}
         case 2:{system("cls");
                 first->Show_user_s_ticket(username,1);
-                cout<<"\nPress Enter to return to the menu. . .";
+                cout<<"\nНажмите Enter чтобы вернуться в меню. . .";
                 cin.get();cin.get();
                 break;}
         case 3:{system("cls");
                 first->Show_user_s_ticket(username,2);
-                cout<<"\nPress Enter to return to the menu. . .";
+                cout<<"\nНажмите Enter чтобы вернуться в меню. . .";
                 cin.get();cin.get();
                 break;}
         case 4:{system("cls");

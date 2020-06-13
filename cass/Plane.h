@@ -1,4 +1,4 @@
-#ifndef PLANE_H_INCLUDED
+﻿#ifndef PLANE_H_INCLUDED
 #define PLANE_H_INCLUDED
 #include <iostream>
 #include  <windows.h>
